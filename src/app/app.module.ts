@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 // Modulos
 import {AppRoutingModule} from './app-routing.module';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // Environment
 import {environment} from '../environments/environment';
@@ -49,6 +49,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase, 'ingreso-egreso-app'),
     AngularFirestoreModule,
     AngularFireAuthModule,
