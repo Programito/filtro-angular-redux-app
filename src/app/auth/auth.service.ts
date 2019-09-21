@@ -15,6 +15,8 @@ import {map} from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { User } from './user.model';
 import { AppState } from '../app,reducer';
+import { SetUserAction } from './auth.actions';
+import { Subscription } from 'rxjs';
 
 
 
@@ -22,6 +24,8 @@ import { AppState } from '../app,reducer';
   providedIn: 'root'
 })
 export class AuthService {
+
+  private userSubscription: Subscription = new Subscription();
 
   constructor(private afAuth: AngularFireAuth,
               private router: Router,
@@ -31,7 +35,17 @@ export class AuthService {
    // informacion de usuario activo
   initAuthListener() {
     this.afAuth.authState.subscribe((fbUser: firebase.User) => {
-      console.log(fbUser.email);
+      // console.log(fbUser.email);
+      if (fbUser) {
+       this.userSubscription = this.afDB.doc(`${fbUser.uid}/usuario`).valueChanges()
+          .subscribe((usuarioObj: any) => {
+            // console.log(usuarioObj);
+            const newUser = new User(usuarioObj);
+            this.store.dispatch(new SetUserAction(newUser));
+          });
+      } else {
+        this.userSubscription.unsubscribe();
+      }
     });
   }
 
