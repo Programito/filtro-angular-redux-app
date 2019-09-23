@@ -14,8 +14,8 @@ import {map} from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
 import { User } from './user.model';
-import { AppState } from '../app,reducer';
-import { SetUserAction } from './auth.actions';
+import { AppState } from '../app.reducer';
+import { SetUserAction, UnsetUserAction } from './auth.actions';
 import { Subscription } from 'rxjs';
 
 
@@ -111,6 +111,8 @@ export class AuthService {
   logOut() {
     this.router.navigate(['/login']);
     this.afAuth.auth.signOut();
+
+    this.store.dispatch( new UnsetUserAction());
   }
 
   isAuth() {
