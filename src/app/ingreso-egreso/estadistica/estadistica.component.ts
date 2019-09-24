@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
+// import { AppState } from '../../app.reducer';
 import { Subscription } from 'rxjs';
 import { IngresoEgreso } from '../ingreso-egreso.model';
+
+import * as fromIngresoEgreso from '../ingreso-egreso.reducer';
 
 @Component({
   selector: 'app-estadistica',
@@ -22,7 +24,9 @@ export class EstadisticaComponent implements OnInit {
   public doughnutChartLabels: string[] = ['Ingresos', 'Egresos'];
   public doughnutChartData: number[] = [];
 
-  constructor(private store: Store<AppState>) { }
+  // para select 'ingresoEgreso' que esta en el extends
+  // para cargar en lazyload
+  constructor(private store: Store<fromIngresoEgreso.AppState>) { }
 
   ngOnInit() {
     this.subscription = this.store.select('ingresoEgreso')
@@ -31,7 +35,7 @@ export class EstadisticaComponent implements OnInit {
       });
   }
 
-  contarIngresoEgreso( items: IngresoEgreso[]){
+  contarIngresoEgreso( items: IngresoEgreso[]) {
     this.ingresos = 0;
     this.egresos = 0;
 

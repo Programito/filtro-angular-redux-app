@@ -1,9 +1,16 @@
 
 import * as fromIngresoEgreso from './ingreso-egreso.actions';
 import { IngresoEgreso } from './ingreso-egreso.model';
+import { AppState } from '../app.reducer';
 
 export interface IngresoEgresoState {
     items: IngresoEgreso[];
+}
+
+// al AppState le extiendes
+// asi cargas en lazy y sino estas identificado no lo ves
+export interface AppState extends AppState {
+    IngresoEgreso: IngresoEgresoState;
 }
 
 const estadoInicial: IngresoEgresoState = {

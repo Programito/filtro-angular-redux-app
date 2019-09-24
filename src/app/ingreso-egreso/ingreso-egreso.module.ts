@@ -10,16 +10,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { ChartsModule } from 'ng2-charts';
 import { DashboardRoutingModule } from '../dashboard/dashboard-routing.module';
+import { StoreModule } from '@ngrx/store';
+import { ingresoEgresoReducer } from './ingreso-egreso.reducer';
 
 
-
+// StoreModule.forFeature para cargar en lazyLoad
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     ChartsModule,
     SharedModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    StoreModule.forFeature('ingresoEgreso', ingresoEgresoReducer)
   ],
   declarations: [
     DashboardComponent,
